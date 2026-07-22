@@ -48,7 +48,7 @@ Delegate a subtask only when it has a crisp output and owned paths, such as test
 
 ## Routing
 
-Use the following default model and reasoning level. Set an explicit model override only when the delegation API supports it. If the requested model is unavailable, choose the lowest available model that preserves the route's intent and say so in the handoff; in this runtime, map Luna routes to Terra at the stated reasoning level rather than claiming Luna was used.
+Use the following default model and reasoning level. Set an explicit model override only when the delegation API supports it. When a Luna route is available, use Luna. If Luna is unavailable, use Terra at the stated reasoning level and disclose the substitution in the handoff. For any other unavailable requested model, choose the lowest available model that preserves the route's intent and say so in the handoff.
 
 | Purpose | Default model | Reasoning | Use for |
 | --- | --- | --- | --- |
