@@ -3,7 +3,7 @@ name: gpt-balance-orchestrator
 description: Orchestrate non-trivial software implementation, feature changes, refactors, and test additions as cohesive feature units using TDD, isolated child-agent work, report-driven completion handling with exception tracking across delegation hierarchies, independent reviews, and targeted improvement loops. Use when a request benefits from planning and executing one or more code-changing functional units; apply selectively rather than for read-only questions or trivially safe edits.
 ---
 
-# Feature Workflow Orchestrator
+# GPT Balance Orchestrator
 
 Apply this workflow only when it improves confidence or throughput. Do not force it onto read-only work, a clearly trivial isolated edit, or a user request that explicitly asks for a different process. Treat a feature unit as one cohesive behavior with a testable acceptance criterion; do not split merely by file, class, or individual method.
 
