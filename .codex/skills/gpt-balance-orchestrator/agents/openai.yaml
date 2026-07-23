@@ -1,4 +1,4 @@
 interface:
-  display_name: "Feature Workflow Orchestrator"
+  display_name: "GPT Balance Orchestrator"
   short_description: "Functional Unit TDD, Reviews, and Parallel Task Orchestration"
-  default_prompt: "Use $feature-workflow-orchestrator to implement this change by feature unit with TDD and review loops."
+  default_prompt: "Use $gpt-balance-orchestrator to implement this change by feature unit with TDD and review loops."

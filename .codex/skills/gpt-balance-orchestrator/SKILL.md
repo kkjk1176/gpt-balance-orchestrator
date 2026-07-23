@@ -1,5 +1,5 @@
 ---
-name: feature-workflow-orchestrator
+name: gpt-balance-orchestrator
 description: Orchestrate non-trivial software implementation, feature changes, refactors, and test additions as cohesive feature units using TDD, isolated child-agent work, report-driven completion handling with exception tracking across delegation hierarchies, independent reviews, and targeted improvement loops. Use when a request benefits from planning and executing one or more code-changing functional units; apply selectively rather than for read-only questions or trivially safe edits.
 ---
 
