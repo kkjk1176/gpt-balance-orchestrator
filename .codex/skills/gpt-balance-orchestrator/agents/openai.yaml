@@ -1,4 +1,4 @@
 interface:
   display_name: "GPT Balance Orchestrator"
-  short_description: "Functional Unit TDD, Reviews, and Parallel Task Orchestration"
-  default_prompt: "Use $gpt-balance-orchestrator to implement this change by feature unit with TDD and review loops."
+  short_description: "Model selection by task, TDD, and independent review"
+  default_prompt: "Use $gpt-balance-orchestrator to implement this non-trivial code change with suitable models and reasoning effort, TDD, selective delegation, and independent review."

@@ -2,56 +2,41 @@
 
 [한국어로 읽기](README.ko.md)
 
-`GPT Balance Orchestrator` is a Codex skill for turning a meaningful software change into a well-managed feature workflow. It helps an agent plan, implement, review, and verify a feature as one coherent piece of work—without treating every tiny edit as a full-scale project.
+`GPT Balance Orchestrator` is a Codex skill for non-trivial code-changing features, refactors, and test additions. It improves token efficiency by matching model capability and reasoning effort to each task's requirements and quality bar, avoiding unnecessary use of stronger models.
 
-## What it is for
+It delegates execution only when parallelism or context separation provides a concrete benefit; otherwise the main session performs the continuous workflow directly. Independent review is required in either case.
 
-Use this skill when a request involves a non-trivial feature, refactor, or test addition and you want dependable progress rather than a pile of disconnected edits. It is particularly useful when work needs clear acceptance criteria, focused tests, careful delegation, or an independent review before it is considered done.
+## What it preserves
 
-For a small documentation tweak or an obviously safe one-line change, the skill intentionally stays lightweight. Good engineering judgment includes knowing when *not* to add process.
+- Parallel work never has overlapping writable paths or behavioral contracts.
+- The parent observes and evaluates every child report before completion.
+- Each meaningful behavior uses the smallest practical Red → Green → Refactor loop.
+- Every feature or integration outcome gets independent review; security, authorization, payments, data deletion, migrations, and deployments also get a Final review.
 
-## How it works
+Child reports state the outcome, changed paths, checks, and risks or blockers. The parent integrates those findings and reports the result, review findings or fixes, and residual risk.
 
-The workflow keeps ownership and verification clear from start to finish:
+## Routing
 
-1. **Shape the feature.** The agent identifies the acceptance criteria, affected boundaries, test command, risks, and the smallest cohesive units of work. If work is delegated, each agent gets an explicit scope and the parent remains responsible for the final result.
-2. **Build with a feedback loop.** Each unit follows a Red → Green → Refactor cycle: first express the intended behavior in a focused test, then implement the minimum change, then improve the design while the test stays green. For work that cannot be tested this way, the closest practical executable check is used instead.
-3. **Review independently.** A separate reviewer checks the diff for requirement gaps, regressions, edge cases, and test quality. Clear, bounded findings are fixed and rechecked; uncertain or higher-risk issues are escalated rather than guessed at.
-4. **Integrate and close.** Completed units are combined in dependency order, relevant focused and integration checks run, and any remaining risk or unverified item is reported plainly.
+New sessions and child agents use only `gpt-6-luna`, `gpt-6.1-terra`, `gpt-6.1-sol`, or `gpt-6-astra`. Use Luna Low for first-pass triage or mechanical edits and Medium for prescribed implementation or test updates. Use GPT-6.1 Terra High for scoped code or test diagnosis and ambiguous visual UI diagnosis, Medium for bounded browser verification or visual UI checks with clear criteria, and Low for routine feature-documentation rewriting from supplied evidence. Use GPT-6.1 Sol Medium for ordinary feature work, tests, planning, or routine coordination, and High for architecture, difficult diagnosis, complex cross-system work, or independent review, including high-risk final review.
 
-This makes the process visible: someone is always accountable for coordination, implementation, review, and validation.
+These are task-specific defaults; adjust when the task's demands or results justify it. XHigh requires an explicit user request or demonstrated quality gains on comparable tasks.
 
-## Built-in routing
-
-The skill matches work to the right level of effort. It uses lighter execution for small, clear changes and stronger planning, critique, diagnosis, or final review for work with broader impact. Security, authorization, payments, data deletion or migration, and deployment changes receive a final high-scrutiny review.
-
-It also avoids the common delegation trap: child agents report their result—including checks run, changed paths, and blockers—back to the parent. The parent does not mark the feature complete until those results have been evaluated.
+Unless explicitly requested by the user, Astra High is reserved for a specific, consequential reasoning blocker that remains after focused Sol High diagnosis and independent Sol review. Complexity, risk, or missing information or tools alone does not justify escalation. Limit Astra to the unresolved question and return execution to Sol. Astra XHigh requires an explicit user request. See the [full routing policy](.codex/skills/gpt-balance-orchestrator/SKILL.md#routing).
 
 ## How to use it
 
-Describe the outcome you want in plain language. For example:
+Describe the outcome you want, for example:
 
 ```text
 Add CSV export for the billing report. Include permission checks, regression tests,
 and a review of the error states.
 ```
 
-Or ask explicitly for the workflow when the change is substantial:
+Or explicitly request the workflow:
 
 ```text
 Use GPT Balance Orchestrator to refactor the notification pipeline safely.
 ```
-
-The skill will help turn that request into cohesive feature units, select an appropriate implementation and review route, and report the checks and any remaining risks when it finishes.
-
-## What you can expect
-
-- A clear description of what “done” means before implementation begins.
-- Tests or the closest relevant executable validation for each meaningful change.
-- Independent review instead of relying only on the implementer’s self-check.
-- A concise completion report covering changes, verification, findings, and residual risks.
-
-The goal is not ceremony. It is to make non-trivial changes easier to trust, easier to review, and easier to improve.
 
 ## License
 
