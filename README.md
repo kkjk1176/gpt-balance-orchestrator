@@ -17,11 +17,24 @@ Child reports state the outcome, changed paths, checks, and risks or blockers. T
 
 ## Routing
 
-New sessions and child agents use only `gpt-6-luna`, `gpt-6.1-terra`, `gpt-6.1-sol`, or `gpt-6-astra`. Use Luna Low for first-pass triage or mechanical edits and Medium for prescribed implementation or test updates. Use GPT-6.1 Terra High for scoped code or test diagnosis and ambiguous visual UI diagnosis, Medium for bounded browser verification or visual UI checks with clear criteria, and Low for routine feature-documentation rewriting from supplied evidence. Use GPT-6.1 Sol Medium for ordinary feature work, tests, planning, or routine coordination, and High for architecture, difficult diagnosis, complex cross-system work, or independent review, including high-risk final review.
+The preferred models are `gpt-6-luna`, `gpt-6.1-terra`, `gpt-6.2-sol`, and `gpt-6.2-astra`. GPT-6.2 Sol and Astra [launched on November 17, 2026](https://learn.chatgpt.com/docs/whats-new/gpt-62-astra-sol); routes were checked on November 18.
 
-These are task-specific defaults; adjust when the task's demands or results justify it. XHigh requires an explicit user request or demonstrated quality gains on comparable tasks.
+| Task | Default route |
+| --- | --- |
+| First-pass triage / mechanical edits | Luna Low |
+| Prescribed implementation / test updates | Luna Medium |
+| Visual UI diagnosis | GPT-6.1 Terra High |
+| Bounded browser / visual checks | GPT-6.1 Terra Medium |
+| Routine feature-documentation rewriting | GPT-6.1 Terra Low |
+| Ordinary features / tests / planning / coordination | GPT-6.2 Sol Medium |
+| Code diagnosis / architecture / cross-system work / independent or final review | GPT-6.2 Sol High |
+| Consequential reasoning blocker after Sol diagnosis and independent review | GPT-6.2 Astra High |
 
-Unless explicitly requested by the user, Astra High is reserved for a specific, consequential reasoning blocker that remains after focused Sol High diagnosis and independent Sol review. Complexity, risk, or missing information or tools alone does not justify escalation. Limit Astra to the unresolved question and return execution to Sol. Astra XHigh requires an explicit user request. See the [full routing policy](.codex/skills/gpt-balance-orchestrator/SKILL.md#routing).
+These are task-specific defaults; adjust when the task's demands or results justify it. XHigh or Max requires an explicit user request or demonstrated quality gains on comparable tasks. Ultra requires an explicit user request, runtime support, and permission for automatic delegation. Astra above High always requires an explicit user request.
+
+Unless explicitly requested by the user, Astra High remains reserved for a specific, consequential reasoning blocker after focused Sol High diagnosis and independent Sol review. Complexity, risk, or missing information or tools alone does not justify escalation. Limit Astra to the unresolved question and return execution to Sol.
+
+Check the dispatch tool's actual model and effort options. If Luna is absent, use Terra for triage/mechanical edits or Sol for implementation/tests. If Terra is absent, use Sol with the required tools. Previous `gpt-6.1-sol` and `gpt-6-astra` are availability fallbacks for their GPT-6.2 counterparts. Report substitutions and retain the Astra gate. The skill guides routing; it does not switch the running session's model. See the [full routing policy](.codex/skills/gpt-balance-orchestrator/SKILL.md#routing) and [model evidence](.codex/skills/gpt-balance-orchestrator/references/models.md).
 
 ## How to use it
 

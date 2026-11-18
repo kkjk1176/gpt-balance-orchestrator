@@ -27,20 +27,25 @@ Obtain one independent review per cohesive feature or integration outcome, cover
 
 ## Routing
 
-Use only `gpt-6-luna`, `gpt-6.1-terra`, `gpt-6.1-sol`, or `gpt-6-astra` for new sessions and child agents. Choose model and reasoning effort by task fit and required quality, considering complexity, uncertainty, and risk, subject to the Astra exception below. If no eligible model is available, report a blocker.
+Prefer `gpt-6-luna`, `gpt-6.1-terra`, `gpt-6.2-sol`, or `gpt-6.2-astra` for new sessions and child agents. Choose model and reasoning effort by task fit and required quality, considering complexity, uncertainty, and risk, subject to the Astra exception below. These defaults were checked on 2026-11-18; see [model evidence and availability](references/models.md) when refreshing the routes or resolving an availability mismatch.
+
+Before dispatch, check the actual tool's model and effort options. A model listed in the app, API documentation, or local cache may be unavailable to the child-agent tool. Set supported model and effort arguments explicitly when that tool permits overrides; otherwise use a suitable inherited route. This skill does not change the running session's model.
 
 | Decision | Route |
 | --- | --- |
 | First-pass triage or mechanical edits | `gpt-6-luna` at Low |
 | Prescribed implementation or test updates with clear acceptance criteria | `gpt-6-luna` at Medium |
-| Scoped code or test diagnosis, or ambiguous visual UI diagnosis | `gpt-6.1-terra` at High |
+| Scoped code or test diagnosis | `gpt-6.2-sol` at High |
+| Ambiguous visual UI diagnosis | `gpt-6.1-terra` at High |
 | Bounded browser verification or visual UI checks with clear criteria | `gpt-6.1-terra` at Medium |
 | Routine feature-documentation rewriting from supplied evidence | `gpt-6.1-terra` at Low |
-| Ordinary feature work, tests, planning, or routine coordination | `gpt-6.1-sol` at Medium |
-| Architecture, difficult diagnosis, or complex cross-system work | `gpt-6.1-sol` at High |
-| Independent code or test review, including high-risk final review | `gpt-6.1-sol` at High |
-| Exceptional unresolved reasoning blocker | `gpt-6-astra` at High |
+| Ordinary feature work, tests, planning, or routine coordination | `gpt-6.2-sol` at Medium |
+| Architecture, difficult diagnosis, or complex cross-system work | `gpt-6.2-sol` at High |
+| Independent code or test review, including high-risk final review | `gpt-6.2-sol` at High |
+| Exceptional unresolved reasoning blocker | `gpt-6.2-astra` at High |
 
-Use these as task-specific defaults; adjust when the task's demands or results justify it. XHigh requires an explicit user request or demonstrated quality gains on comparable tasks.
+Use these as task-specific defaults; adjust when the task's demands or results justify it. XHigh or Max requires an explicit user request or demonstrated quality gains on comparable tasks. Ultra requires an explicit user request, runtime support, and permission for any automatic delegation. Never request an unsupported effort.
 
-Unless explicitly requested by the user, Astra is reserved for a specific, consequential reasoning blocker that remains after focused Sol High diagnosis and independent Sol review. Complexity or risk alone does not qualify; missing information or tools does not justify escalation. Give Astra only the relevant evidence and the unresolved question, then return execution to Sol. Use Astra XHigh only when explicitly requested by the user.
+Unless explicitly requested by the user, Astra is reserved for a specific, consequential reasoning blocker that remains after focused Sol High diagnosis and independent Sol review. Complexity or risk alone does not qualify; missing information or tools does not justify escalation. Give Astra only the relevant evidence and the unresolved question, then return execution to Sol. Use Astra above High only when explicitly requested by the user.
+
+If Luna is unavailable, use Terra at the same effort for triage or mechanical edits, or Sol Medium for prescribed implementation and tests. If Terra is unavailable, use Sol at the same effort for documentation or visual work only when the required image/computer tools are available. If GPT-6.2 Sol or Astra is unavailable, use `gpt-6.1-sol` or `gpt-6-astra`, respectively, only when exposed by the runtime; retain the same effort and Astra gate. Report the substitution. If no suitable permitted model or required tool is available, report the specific blocker.
